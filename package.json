@@ -1,0 +1,29 @@
+{
+  "name": "coupon-h5",
+  "version": "0.0.0",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "axios": "^0.23.0",
+    "sass": "^1.43.2",
+    "vant": "^3.2.5",
+    "vue": "^3.2.16",
+    "vue-router": "4",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.2.0",
+    "precss": "^4.0.0",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4",
+    "vite-plugin-style-import": "^1.2.1",
+    "vue-tsc": "^0.3.0"
+  }
+}
