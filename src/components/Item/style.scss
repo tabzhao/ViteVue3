@@ -1,0 +1,17 @@
+.item-root{
+  .van-tag{
+    height: 20px;
+  }
+  .van-cell__title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .van-cell__label{
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .van-cell{
+    align-items: center;
+  }
+}

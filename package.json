@@ -10,6 +10,7 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "axios": "^0.23.0",
+    "dexie": "^3.0.3",
     "sass": "^1.43.2",
     "vant": "^3.2.5",
     "vue": "^3.2.16",

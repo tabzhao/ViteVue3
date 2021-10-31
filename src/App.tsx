@@ -10,7 +10,7 @@ export default defineComponent({
         {{
           default: ({ Component }: any) => {
             return <Transition name="fade" appear mode="out-in">
-              <div key={+(new Date())}>{Component}</div>
+              <div class="root" key={+(new Date())}>{Component}</div>
             </Transition>
           }
         }}

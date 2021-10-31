@@ -1,3 +1,23 @@
 .index-root{
- 
+  min-height: 100vh;
+  background-color: #efefef;
+  .body{
+    min-height: calc(100vh - 48px);
+    border-top: solid 1px #efefef;
+    .van-swipe-cell{
+      border-bottom: solid 1px #efefef;
+    }
+  }
+  .fix-button{
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateY(-50%);
+    height: 48px;
+    width: 48px;
+  }
+
+}
+:root{
+  --van-button-default-height: 100%;
 }
