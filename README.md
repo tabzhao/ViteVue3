@@ -1,3 +1,8 @@
+# 介绍
+此项目是尝试vite+vue3最新特性，并完成了相应的项目开发。
+踢出掉所有项目相关之后，并写了一个todolist的demo
+
+
 # 技术栈
 1.  [Vite](https://vitejs.cn/)
 2.  [Vue3](https://v3.cn.vuejs.org/)
