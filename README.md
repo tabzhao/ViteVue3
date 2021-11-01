@@ -7,3 +7,4 @@
 6.  [vuex@4](https://next.vuex.vuejs.org/zh/index.html)
 7.  [Scss](https://sass-lang.com/)
 8.  [Dexie](https://dexie.org/)
+9.  [vant](https://vant-contrib.gitee.io/vant/v3/#/zh-CN/home)
