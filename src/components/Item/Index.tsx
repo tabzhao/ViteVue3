@@ -11,6 +11,10 @@ export default defineComponent({
     label: {
       type: String,
       default: ''
+    },
+    status: {
+      type: Number,
+      default: 0
     }
   },
   render() {
@@ -18,7 +22,11 @@ export default defineComponent({
     return <div class="item-root">
       <Cell size="large" title={title} label={label} >
         {{
-          extra: () => <Tag type="success" size="medium" plain>完成</Tag>
+          extra: () => {
+            if (this.$props.status === 0) return <Tag type="primary" size="medium" plain>未完成</Tag>
+            if (this.$props.status === 1) return <Tag type="success" size="medium" plain>已完成</Tag>
+            if (this.$props.status === 2) return <Tag type="warning" size="medium" plain>已删除</Tag>
+          }
         }}
       </Cell>
     </div>

@@ -1,4 +1,4 @@
-import { defineComponent, ref, Ref } from 'vue';
+import { defineComponent, ref, Ref, computed } from 'vue';
 import Item from '../../components/Item'
 import {
   DropdownMenu, DropdownItem, DropdownItemOption, PullRefresh,
@@ -6,6 +6,8 @@ import {
 } from 'vant';
 import './index.scss';
 import DB, { ToDoItem } from '../../utils/data'
+import { useStore } from 'vuex'
+import { key } from '../../store/index'
 
 export default defineComponent({
   name: 'Index',
@@ -29,23 +31,35 @@ export default defineComponent({
       console.log('刷新完成')
     }
 
-    const list: Ref<ToDoItem> = ref(['as', '123'])
+    const store = useStore(key)
+
+    const list: Ref<ToDoItem[]> = ref([])
     return {
       option,
       optionValue,
       optionChange,
       refresh,
       refreshHandler,
-      list
+      list: computed(() => store.state.coupon.list),
+      store
     }
   },
   created() {
-    
+    this.store.dispatch('getList')
   },
   mounted() {
-    DB.getList().then(res => {
-      this.list.values = res
-    })
+
+  },
+  methods: {
+    async action(id: number, type: string) {
+      let ret
+      if (type === 'del') {
+        ret = await DB.delItem(id)
+      } else if (type === 'do') {
+        ret = await DB.updateStatus(id, {status: 1})
+      }
+      this.store.dispatch('getList')
+    }
   },
   render() {
     return <div class="index-root">
@@ -57,14 +71,13 @@ export default defineComponent({
           <List finishedText="没有更多了" finished={true} loading={false}>
             {this.list.map(item => (<SwipeCell>
               {{
-                default: () => <Item title="我的任务我的任务我的任务我的任务我的任务我的任务我的任务" label="asdasdasasdasdasasdasdasasdasdasasdasdasasdasdasasdasdasasdasdas" />,
+                default: () => <Item title={item.title} label={item.remark} status={item.status} />,
                 right: () => <>
-                  <Button type="success" square>完成</Button>
-                  <Button type="danger" square>删除</Button>
+                  <Button type="success" square onClick={this.action.bind(this, item.id, 'do')}>完成</Button>
+                  <Button type="danger" square onClick={this.action.bind(this, item.id, 'del')}>删除</Button>
                 </>
               }}
             </SwipeCell>))}
-
           </List>
         </div>
       </PullRefresh>

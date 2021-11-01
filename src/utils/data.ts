@@ -36,13 +36,27 @@ class IndexedDb {
       })
     })
   }
-  getList(status:number[] = [0], table: string = 'record'): Promise<ToDoItem> {
+  getList(status:number[] = [0], table: string = 'record'): Promise<ToDoItem[]> {
     return new Promise((resolve, reject) => {
       this.db.table(table).where('status').anyOf([0, 1]).sortBy('time').then(res => {
         resolve(res)
       })
     })
-  } 
+  }
+  delItem(id: number, table: string = 'record') {
+    return new Promise((resolve, reject) => {
+      this.db.table(table).delete(id).then(res => {
+        resolve(res)
+      })
+    })
+  }
+  updateStatus(id:number, data: { status: number }, table: string = 'record') {
+    return new Promise((resolve, reject) => {
+      this.db.table(table).where('id').equals(id).modify(data).then(res => {
+        resolve(res)
+      })
+    })
+  }
 }
 
 
