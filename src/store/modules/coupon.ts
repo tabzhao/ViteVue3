@@ -16,9 +16,13 @@ const mutations = {
 }
 
 const actions = {
-  async getList({ commit }: ActionContext<any, any>) {
-    const data = await DB.getList()
-    console.log(data)
+  async getList({ commit }: ActionContext<any, any>, status: number[] = []) {
+    let data: ToDoItem[] = []
+    if (status.length > 0) {
+      data = await DB.getList(status)
+    } else {
+      data = await DB.getList()
+    }
     commit({
       type: 'setList',
       list: data

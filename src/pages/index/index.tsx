@@ -12,14 +12,19 @@ import { key } from '../../store/index'
 export default defineComponent({
   name: 'Index',
   setup() {
-    const optionValue = ref(1)
+    const optionValue = ref(-1)
     const option: DropdownItemOption[] = [
+      {text: '全部', value: -1},
       {text: '未完成', value: 0},
       {text: '进行中', value: 1},
       {text: '已完成', value: 2},
     ]
     const optionChange = (evt: number) => {
-      console.log(evt)
+      if (evt > -1) {
+        store.dispatch('getList', [evt])
+      } else {
+        store.dispatch('getList')
+      }
     }
     const refresh = ref(false)
     const refreshHandler = () => {
@@ -56,6 +61,8 @@ export default defineComponent({
       if (type === 'del') {
         ret = await DB.delItem(id)
       } else if (type === 'do') {
+        ret = await DB.updateStatus(id, {status: 2})
+      } else if (type === 'go') {
         ret = await DB.updateStatus(id, {status: 1})
       }
       this.store.dispatch('getList')
@@ -64,7 +71,7 @@ export default defineComponent({
   render() {
     return <div class="index-root">
       <DropdownMenu>
-        <DropdownItem v-model={this.optionValue} options={this.option} onChange={this.optionChange}></DropdownItem>
+        <DropdownItem v-model={this.optionValue} options={this.option} onChange={this.optionChange} ></DropdownItem>
       </DropdownMenu>
       <PullRefresh v-model={this.refresh} onRefresh={this.refreshHandler}>
         <div class="body">
@@ -73,7 +80,8 @@ export default defineComponent({
               {{
                 default: () => <Item title={item.title} label={item.remark} status={item.status} />,
                 right: () => <>
-                  <Button type="success" square onClick={this.action.bind(this, item.id, 'do')}>完成</Button>
+                  {item.status === 1 && <Button type="success" square onClick={this.action.bind(this, item.id, 'do')}>完成</Button>}
+                  {item.status === 0 && <Button type="primary" square onClick={this.action.bind(this, item.id, 'go')}>开始</Button>}
                   <Button type="danger" square onClick={this.action.bind(this, item.id, 'del')}>删除</Button>
                 </>
               }}
